@@ -1,1 +1,5 @@
-# dotnet-expect
+# dotnet expect
+
+## License
+
+MIT

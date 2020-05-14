@@ -1,0 +1,64 @@
+name: Test Expect
+defaultTimeout: 60000
+path: pwsh
+args: -NoProfile -NoLogo
+
+steps:
+- action: send-user
+  with:
+    output: 'This is a test!\n'
+
+- action: send
+  with:
+    output: 'ping 8.8.8.8 -n 4\n'
+
+- action: expect
+  with:
+    pattern: 'Ping statistics'
+    match: contains
+
+- action: send-user
+  with:
+    output: 'Check if website supports IPv6: '
+
+- action: expect-user
+  with:
+    pattern: '.*'
+    match: regex
+    assign: Uri
+
+- action: send
+  with:
+    output: 'nslookup {{Uri}}\n'
+
+- action: expect
+  with:
+    pattern: '(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))'
+    match: regex
+    output: 'Found IPv6!'
+
+- action: send-user
+  with:
+    output: 'What is your name? '
+
+- action: expect-user
+  with:
+    pattern: '.*'
+    match: regex
+    assign: Username
+    masked-input: true
+
+- action: send-user
+  with:
+    output: 'How old are you? '
+
+- action: expect-user
+  with:
+    pattern: '\d*'
+    match: regex
+    assign: Age
+    # variable-type: System.Int32 # all value types are welcome here, must be fully qualified name TODO make shortcuts later
+
+- action: send-user
+  with:
+    output: 'Hello, {{Username}}! You are {{Age}} years old!\n'

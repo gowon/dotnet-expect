@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Dotnet.Expect\Dotnet.Expect.csproj" />
+    <ProjectReference Include="..\Dotnet.Expect.Plugins.HelloWorld\Dotnet.Expect.Plugins.HelloWorld.csproj" />
+  </ItemGroup>
+
+</Project>

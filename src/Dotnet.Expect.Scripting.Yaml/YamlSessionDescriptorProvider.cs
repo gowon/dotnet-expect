@@ -7,11 +7,11 @@
     using YamlDotNet.Serialization;
     using YamlDotNet.Serialization.NamingConventions;
 
-    public class YamlSessionDescriptorFactory : ISessionDescriptorFactory
+    public class YamlSessionDescriptorProvider : ISessionDescriptorProvider
     {
         private readonly IDeserializer _deserializer;
 
-        public YamlSessionDescriptorFactory()
+        public YamlSessionDescriptorProvider()
         {
             _deserializer = new DeserializerBuilder()
                 .WithNamingConvention(CamelCaseNamingConvention.Instance)

@@ -7,7 +7,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Dotnet.Expect\Dotnet.Expect.csproj" />
-    <ProjectReference Include="..\Dotnet.Expect.Plugins.HelloWorld\Dotnet.Expect.Plugins.HelloWorld.csproj" />
+    <ProjectReference Include="..\Dotnet.Expect.Actions.HelloWorld\Dotnet.Expect.Actions.HelloWorld.csproj" />
   </ItemGroup>
 
 </Project>

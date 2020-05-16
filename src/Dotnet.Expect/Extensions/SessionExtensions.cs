@@ -5,13 +5,9 @@
     using System.Threading.Tasks;
     using Actions;
     using Core.Abstractions;
-    using Stubble.Core;
-    using Stubble.Core.Builders;
 
     public static class SessionExtensions
     {
-        private static readonly StubbleVisitorRenderer Renderer = new StubbleBuilder().Build();
-
         public static async Task SendAsync(this Session session, string output,
             CancellationToken cancellationToken = default)
         {
@@ -20,7 +16,7 @@
                 Output = output
             };
 
-            await new SendActionHandler(Renderer).Handle(action, cancellationToken);
+            await new SendActionHandler().Handle(action, cancellationToken);
         }
 
         public static void Send(this Session session, string output)

@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Dotnet.Expect.Tool": {
+      "commandName": "Project",
+      "commandLineArgs": "expect.yml"
+    }
+  }
+}

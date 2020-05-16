@@ -8,6 +8,7 @@
     using System.IO;
     using System.Threading.Tasks;
     using Actions;
+    using Actions.Mustache;
     using Core.Abstractions;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
@@ -15,6 +16,8 @@
     using Microsoft.Extensions.Logging;
     using Runner;
     using Scripting.Yaml;
+    using Stubble.Core;
+    using Stubble.Core.Builders;
 
     internal class Program
     {
@@ -52,7 +55,7 @@
         private static async Task<int> Run(IHost host)
         {
             var provider = host.Services;
-            var factory = provider.GetService<ISessionDescriptorFactory>();
+            var factory = provider.GetService<ISessionDescriptorProvider>();
             var runner = provider.GetRequiredService<SessionRunner>();
 
             var sessionDescriptor = factory.CreateFromYamlFile("expect.yml");
@@ -92,12 +95,23 @@
                         builder.AddConsole();
                     });
 
-                    services.AddSingleton<ISessionDescriptorFactory, YamlSessionDescriptorFactory>();
+                    services.AddSingleton(provider => new StubbleBuilder().Build());
+                    services.AddSingleton<ISessionDescriptorProvider, YamlSessionDescriptorProvider>();
 
+                    services.AddSingleton<IActionHandler, ExpectActionHandler>();
+                    services.AddSingleton<IActionHandler, ExpectUserActionHandler>();
+                    services.AddSingleton<IActionHandler, SendActionHandler>();
+                    services.AddSingleton<IActionHandler, SendUserActionHandler>();
                     services.AddSingleton<IActionBinder, ExpectActionBinder>();
                     services.AddSingleton<IActionBinder, ExpectUserActionBinder>();
                     services.AddSingleton<IActionBinder, SendActionBinder>();
                     services.AddSingleton<IActionBinder, SendUserActionBinder>();
+
+                    services.AddSingleton<IActionHandler, SendFormatActionHandler>();
+                    services.AddSingleton<IActionHandler, SendUserFormatActionHandler>();
+                    services.AddSingleton<IActionBinder, SendFormatActionBinder>();
+                    services.AddSingleton<IActionBinder, SendUserFormatActionBinder>();
+
                     services.AddSingleton<SessionRunner>();
                 });
         }

@@ -1,4 +1,4 @@
-﻿namespace Dotnet.Expect.Plugins.HelloWorld
+﻿namespace Dotnet.Expect.Actions.HelloWorld
 {
     using Core.Abstractions;
 

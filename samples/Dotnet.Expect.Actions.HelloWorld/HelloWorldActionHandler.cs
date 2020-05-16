@@ -1,4 +1,4 @@
-﻿namespace Dotnet.Expect.Plugins.HelloWorld
+﻿namespace Dotnet.Expect.Actions.HelloWorld
 {
     using System;
     using System.Text.RegularExpressions;

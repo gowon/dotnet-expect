@@ -27,7 +27,7 @@ steps:
     match: regex
     assign: Uri
 
-- action: send
+- action: send-format
   with:
     output: 'nslookup {{Uri}}\n'
 
@@ -59,6 +59,6 @@ steps:
     assign: Age
     # variable-type: System.Int32 # all value types are welcome here, must be fully qualified name TODO make shortcuts later
 
-- action: send-user
+- action: send-user-format
   with:
     output: 'Hello, {{Username}}! You are {{Age}} years old!\n'
